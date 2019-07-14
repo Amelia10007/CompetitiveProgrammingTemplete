@@ -13,39 +13,41 @@ class WithIndex<T>
     }
 }
 
-static class Program
+static class Template
 {
-    static void Main(string[] args)
+    public static int LineToInt()
     {
-        var input = int.Parse(Console.ReadLine());
-
-        var inputs = Console.ReadLine()
-            .Split(' ')
-            .Select(s => int.Parse(s))
-            .ToArray();
-
-        var array1 = new int[1];
-        foreach (var i in Enumerable.Range(0, 1))
-        {
-            array1[i] = int.Parse(Console.ReadLine());
-        }
-
-        int w = 1, h = 1;
-        var array2 = new int[h, w];
-        foreach (var y in Enumerable.Range(0, h))
-        {
-            var _inputs = Console.ReadLine()
-               .Split(' ')
-               .Select(s => int.Parse(s))
-               .ToArray();
-            foreach (var x in Enumerable.Range(0, w))
-            {
-                array2[y, x] = _inputs[x];
-            }
-        }
+        return int.Parse(Console.ReadLine());
     }
 
-    static IEnumerable<WithIndex<T>> WithIndex<T>(this IEnumerable<T> sequence)
+    public static string[] LineToStrings()
+    {
+        return Console.ReadLine().Split();
+    }
+
+    public static int[] LineToInts()
+    {
+        return LineToStrings()
+            .Select(s => int.Parse(s))
+            .ToArray();
+    }
+
+
+    public static int[,] LinesToIntTable(int lineCount, int columnCount)
+    {
+        var value = new int[lineCount, columnCount];
+        foreach (var y in Enumerable.Range(0, lineCount))
+        {
+            var ints = LineToInts();
+            foreach (var x in Enumerable.Range(0, columnCount))
+            {
+                value[y, x] = ints[x];
+            }
+        }
+        return value;
+    }
+
+    public static IEnumerable<WithIndex<T>> WithIndex<T>(this IEnumerable<T> sequence)
     {
         int index = 0;
         foreach (var item in sequence)
@@ -53,6 +55,11 @@ static class Program
             yield return new WithIndex<T>(item, index);
             index++;
         }
+    }
+
+    static void Main(string[] args)
+    {
+        Console.WriteLine("Hello");
     }
 }
 
