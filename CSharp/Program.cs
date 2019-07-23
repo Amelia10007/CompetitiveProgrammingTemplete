@@ -32,6 +32,11 @@ static class Template
             .ToArray();
     }
 
+    public static int[] LinesToInts(int lineCount){
+        return Enumerable.Range(0, lineCount)
+            .Select(_ => LineToInt())
+            .ToArray();
+    }
 
     public static int[,] LinesToIntTable(int lineCount, int columnCount)
     {
